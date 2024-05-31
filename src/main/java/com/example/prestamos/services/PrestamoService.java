@@ -21,14 +21,11 @@ public class PrestamoService {
         this.prestamoRepository = prestamoRepository;
     }
 
-    public Prestamo createClient(PrestamoDto prestamoDto){
+    public Prestamo savePrestamo(PrestamoDto prestamoDto){
         Prestamo prestamo = getPrestamoFromDTO(prestamoDto);
         if (prestamo == null){
             throw new ApiException(HttpStatus.BAD_REQUEST, "El prestamo no puede ser nulo.");
         }
-        //if (prestamoRepository.existsByCedula(clienteDto.getDocumento())){
-        //    throw new ApiException(HttpStatus.BAD_REQUEST, "Ya hay un prestamo registrado con esta cédula.");
-       // }
         try{
             log.info("Prestamo guardado: " + prestamo);
             return prestamoRepository.save(prestamo);
@@ -50,8 +47,7 @@ public class PrestamoService {
         prestamo.setTotalPagar(prestamoDto.getTotalPagar());
         prestamo.setFechaInicio(prestamoDto.getFechaInicio());
         prestamo.setInteresGenerado(prestamoDto.getInteresGenerado());
-
-
+        prestamo.setId(prestamoDto.getClienteId());
 
         return prestamo;
     }

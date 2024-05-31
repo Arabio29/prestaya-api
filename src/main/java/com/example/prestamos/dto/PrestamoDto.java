@@ -18,4 +18,5 @@ public class PrestamoDto {
     private double totalPagar;
     private Date fechaInicio;
     private double interesGenerado;
+    private Long clienteId;
 }
