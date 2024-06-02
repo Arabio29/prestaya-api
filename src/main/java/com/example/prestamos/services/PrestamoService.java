@@ -5,6 +5,7 @@ import com.example.prestamos.dto.PrestamoDto;
 import com.example.prestamos.exceptions.ApiException;
 import com.example.prestamos.models.Cliente;
 import com.example.prestamos.models.Prestamo;
+import com.example.prestamos.repositories.ClienteRepository;
 import com.example.prestamos.repositories.PrestamoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,12 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class PrestamoService {
     private PrestamoRepository prestamoRepository;
+    private ClienteRepository clienteRepository;
 
     @Autowired
-    public PrestamoService(){
+    public PrestamoService(PrestamoRepository prestamoRepository, ClienteRepository clienteRepository){
         this.prestamoRepository = prestamoRepository;
+        this.clienteRepository = clienteRepository;
     }
 
     public Prestamo savePrestamo(PrestamoDto prestamoDto){
@@ -47,7 +50,11 @@ public class PrestamoService {
         prestamo.setTotalPagar(prestamoDto.getTotalPagar());
         prestamo.setFechaInicio(prestamoDto.getFechaInicio());
         prestamo.setInteresGenerado(prestamoDto.getInteresGenerado());
-        prestamo.setId(prestamoDto.getClienteId());
+
+        // Obtener el cliente asociado al prestamoDto y establecerlo en el prestamo
+        Cliente cliente = clienteRepository.findById(prestamoDto.getClienteId())
+                .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, "Cliente no encontrado"));
+        prestamo.setCliente(cliente);
 
         return prestamo;
     }
