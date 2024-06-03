@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class PrestamoService {
@@ -36,7 +38,10 @@ public class PrestamoService {
             log.error("Error al guardar el prestamo: " + e.getMessage());
             return null;
         }
+    }
 
+    public List<Prestamo> getAllPrestamos(){
+        return prestamoRepository.findAll();
     }
 
     public Prestamo getPrestamoFromDTO(PrestamoDto prestamoDto) {
