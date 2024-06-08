@@ -50,7 +50,5 @@ public class PrestamoController {
     public CustomResponse <List<Prestamo>> getAllPrestamos(){
         return CustomResponse.success(prestamoService.getAllPrestamos());
     }
-
-
     //add
 }
