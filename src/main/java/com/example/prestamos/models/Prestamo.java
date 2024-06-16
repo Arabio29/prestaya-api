@@ -25,11 +25,12 @@ public class Prestamo {
     private String modalidad;
     private int cuotas;
     private double tasaInteres;
+    private Date fechaInicio;
     private double cuotaPagar;
     private double totalPagar;
-    private Date fechaInicio;
     private double interesGenerado;
-
+    private Date fechaActual;
+    private List<Date> fechasCuotas;
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     @JsonBackReference

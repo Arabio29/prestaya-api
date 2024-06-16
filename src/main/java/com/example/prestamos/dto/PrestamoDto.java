@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -14,9 +15,11 @@ public class PrestamoDto {
     private String modalidad;
     private int cuotas;
     private double tasaInteres;
+    private Date fechaInicio;
     private double cuotaPagar;
     private double totalPagar;
-    private Date fechaInicio;
     private double interesGenerado;
+    private Date fechaActual;
+    private List<Date> fechasCuotas;
     private Long clienteId;
 }
