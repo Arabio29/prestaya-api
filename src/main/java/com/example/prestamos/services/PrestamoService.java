@@ -26,19 +26,20 @@ public class PrestamoService {
         this.clienteRepository = clienteRepository;
     }
 
-    public Prestamo savePrestamo(PrestamoDto prestamoDto){
+    public Prestamo savePrestamo(PrestamoDto prestamoDto) {
         Prestamo prestamo = getPrestamoFromDTO(prestamoDto);
-        if (prestamo == null){
+        if (prestamo == null) {
             throw new ApiException(HttpStatus.BAD_REQUEST, "El prestamo no puede ser nulo.");
         }
-        try{
+        try {
             log.info("Prestamo guardado: " + prestamo);
             return prestamoRepository.save(prestamo);
-        }catch (ApiException e){
+        } catch (Exception e) {
             log.error("Error al guardar el prestamo: " + e.getMessage());
-            return null;
+            throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al guardar el prestamo");
         }
     }
+
 
     public List<Prestamo> getAllPrestamos(){
         return prestamoRepository.findAll();
@@ -51,18 +52,20 @@ public class PrestamoService {
         prestamo.setModalidad(prestamoDto.getModalidad());
         prestamo.setCuotas(prestamoDto.getCuotas());
         prestamo.setTasaInteres(prestamoDto.getTasaInteres());
+        prestamo.setFechaInicio(prestamoDto.getFechaInicio());
         prestamo.setCuotaPagar(prestamoDto.getCuotaPagar());
         prestamo.setTotalPagar(prestamoDto.getTotalPagar());
-        prestamo.setFechaInicio(prestamoDto.getFechaInicio());
         prestamo.setInteresGenerado(prestamoDto.getInteresGenerado());
+        prestamo.setFechaActual(prestamoDto.getFechaActual());
+        prestamo.setFechasCuotas(prestamoDto.getFechasCuotas());
 
-        // Obtener el cliente asociado al prestamoDto y establecerlo en el prestamo
         Cliente cliente = clienteRepository.findById(prestamoDto.getClienteId())
                 .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, "Cliente no encontrado"));
         prestamo.setCliente(cliente);
 
         return prestamo;
     }
+
 
     //add
 }
