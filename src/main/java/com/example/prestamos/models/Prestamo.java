@@ -30,9 +30,12 @@ public class Prestamo {
     private double totalPagar;
     private double interesGenerado;
     private Date fechaActual;
-    private List<Date> fechasCuotas;
+
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     @JsonBackReference
     private Cliente cliente;
+
+    @OneToMany(mappedBy = "prestamo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FechasPrestamos> fechasPrestamos;
 }
