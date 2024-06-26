@@ -1,5 +1,6 @@
 package com.example.prestamos.dto;
 
+import com.example.prestamos.utils.Estado;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ public class PrestamoDto {
     private double totalPagar;
     private double interesGenerado;
     private Date fechaActual;
+    private Estado estado;
     private List<Date> fechasCuotas;
     private Long clienteId;
 }

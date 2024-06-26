@@ -1,8 +1,6 @@
 package com.example.prestamos.utils;
 
-public enum Roles {
-
+public enum Role {
     ADMIN,
-    USER
-
+    USER  
 }

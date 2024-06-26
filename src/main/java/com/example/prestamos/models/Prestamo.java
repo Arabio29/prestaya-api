@@ -1,5 +1,6 @@
 package com.example.prestamos.models;
 
+import com.example.prestamos.utils.Estado;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,9 @@ public class Prestamo {
     private double totalPagar;
     private double interesGenerado;
     private Date fechaActual;
+
+    @Enumerated(EnumType.STRING)
+    private Estado estado;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
