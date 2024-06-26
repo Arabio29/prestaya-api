@@ -8,6 +8,7 @@ import com.example.prestamos.models.FechasPrestamos;
 import com.example.prestamos.models.Prestamo;
 import com.example.prestamos.repositories.ClienteRepository;
 import com.example.prestamos.repositories.PrestamoRepository;
+import com.example.prestamos.utils.Estado;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -59,6 +60,7 @@ public class PrestamoService {
         prestamo.setTotalPagar(prestamoDto.getTotalPagar());
         prestamo.setInteresGenerado(prestamoDto.getInteresGenerado());
         prestamo.setFechaActual(prestamoDto.getFechaActual());
+        prestamo.setEstado(Estado.PENDIENTE);
 
         Cliente cliente = clienteRepository.findById(prestamoDto.getClienteId())
                 .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, "Cliente no encontrado"));
